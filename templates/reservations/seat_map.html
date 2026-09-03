@@ -1,0 +1,46 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ event.name }} | Smart Seat Reservation</title>
+  <link rel="stylesheet" href="{% static 'reservations/app.css' %}">
+</head>
+<body>
+  <div hidden>{% csrf_token %}</div>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="kicker">SMART SEAT RESERVATION</p>
+        <h1>{{ event.name }}</h1>
+        <p class="meta">{{ event.venue }} <span>•</span> Live availability</p>
+      </div>
+      <div class="live"><span></span> Live now</div>
+    </header>
+    <section class="toolbar" aria-label="Seat status">
+      <div class="legend"><span class="dot available"></span> Available</div>
+      <div class="legend"><span class="dot held"></span> Temporarily held</div>
+      <div class="legend"><span class="dot booked"></span> Booked</div>
+      <p id="sync-status">Updating seats...</p>
+    </section>
+    <section class="layout">
+      <div class="stage-area">
+        <div class="stage">STAGE</div>
+        <div id="seat-grid" class="seat-grid" aria-label="Choose seats"></div>
+      </div>
+      <aside class="summary">
+        <p class="kicker">YOUR SELECTION</p>
+        <h2><span id="selected-count">0</span> seats</h2>
+        <p id="selection-message">Select one or more available seats.</p>
+        <div id="selected-list" class="selected-list"></div>
+        <div id="timer" class="timer" hidden>Held for <strong>02:00</strong></div>
+        <button id="reserve-button" class="primary" disabled>Hold selected seats</button>
+        <button id="checkout-button" class="secondary" hidden>Complete booking</button>
+        <p id="feedback" class="feedback" role="status"></p>
+      </aside>
+    </section>
+  </main>
+  <script src="{% static 'reservations/app.js' %}"></script>
+</body>
+</html>
